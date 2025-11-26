@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.datarango</groupId>
 	<artifactId>proto</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.2</version>
 	<name>proto</name>
 	<description>shared gRPC proto definitions for datarango microservices</description>
 	<url />
@@ -30,7 +30,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<grpc.version>1.73.0</grpc.version>
-		<protobuf.version>4.31.1</protobuf.version>
+		<protobuf.version>3.25.1</protobuf.version>
 	</properties>
 	<dependencies>
 
@@ -89,7 +89,7 @@
 				<version>0.6.1</version>
 				<configuration>
 					<protocArtifact>
-						com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}
+						com.google.protobuf:protoc:3.25.1:exe:${os.detected.classifier}
 					</protocArtifact>
 					<pluginId>grpc-java</pluginId>
 					<pluginArtifact>
