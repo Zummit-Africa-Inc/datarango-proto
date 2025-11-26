@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.datarango</groupId>
 	<artifactId>proto</artifactId>
-	<version>1.0.5</version>
+	<version>1.0.6</version>
 	<name>proto</name>
 	<description>shared gRPC proto definitions for datarango microservices</description>
 	<url />
@@ -108,7 +108,7 @@
 						io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}
 					</pluginArtifact>
 					<protoSourceRoot>${project.basedir}/src/main/proto</protoSourceRoot>
-					<clearOutputDirectory>false</clearOutputDirectory>
+					<clearOutputDirectory>true</clearOutputDirectory>
 				</configuration>
 				<executions>
 					<execution>
