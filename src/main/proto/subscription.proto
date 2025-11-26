@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.datarango.grpc.subscription";
+
+package subscription;
+
+import "coupon.proto";
+import "plan.proto";
+
+service SubscriptionService {}
+
+message Subscription {
+  string id  = 1;
+  Plan plan = 2;
+  bool is_active = 3;
+  bool auto_renew = 4;
+  Coupon coupon = 5;
+  string payment_method = 6;
+  int64 last_payment_date = 7;
+  int64 expires_at = 8;
+  int64 created_at = 9;
+  int64 updated_at = 10;
+}

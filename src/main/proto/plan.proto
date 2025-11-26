@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.datarango.grpc.plan";
+
+package plan;
+
+import "user.proto";
+
+service PlanService {}
+
+enum BillingCycle {
+  BILLING_MONTHLY = 0;
+  BILLING_ANNUAL = 1;
+  BILLING_CUSTOM = 2;
+}
+
+message Plan {
+  string id = 1;
+  string name = 2;
+  string tier = 3;
+  string description = 4;
+  int64 monthly_price = 5;
+  int64 annual_price = 6;
+  string currency = 7;
+  BillingCycle billing_cycle = 8;
+  int64 trial_period_days = 9;
+  bool active = 10;
+  int64 max_users = 11;
+  repeated string features = 12;
+  User created_by = 13;
+  int64 created_at = 14;
+  int64 updated_at = 15;
+}

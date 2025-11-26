@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.datarango.grpc.coupon";
+
+package coupon;
+
+import "user.proto";
+
+service CouponService {}
+
+enum CouponType {
+  TYPE_FREE = 0;
+  TYPE_CREDIT = 1;
+  TYPE_DISCOUNT = 2;
+}
+
+message Coupon {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  CouponType type = 4;
+  int64 credit_amount = 5;
+  int64 discount_rate = 6;
+  int64 max_usage_count = 7;
+  int64 current_usage_count = 8;
+  int64 valid_from = 9;
+  int64 valid_until = 10;
+  bool is_active = 11;
+  string applies_to = 12;
+  int64 minimum-spend = 13;
+  int64 created_at = 14;
+  User created_by = 15;
+  int64 updated_at = 16;
+}

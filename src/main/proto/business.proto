@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.datarango.grpc.business";
+
+package business;
+
+import "subscription.proto";
+import "user.proto";
+
+service BusinessService {}
+
+message Business {
+  string id = 1;
+  string name = 2;
+  string domain = 3;
+  string email = 4;
+  Subscription subscription = 5;
+  repeated User user = 6;
+  int64 created_at = 7;
+  int64 updated_at = 8;
+}
