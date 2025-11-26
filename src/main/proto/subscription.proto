@@ -5,8 +5,7 @@ option java_package = "com.datarango.grpc.subscription";
 
 package subscription;
 
-import "coupon.proto";
-import "plan.proto";
+// Removed imports to avoid circular dependencies - using string IDs instead
 
 service SubscriptionService {
   rpc CreateSubscription(CreateSubscriptionRequest) returns (Subscription);
@@ -19,10 +18,10 @@ service SubscriptionService {
 
 message Subscription {
   string id  = 1;
-  Plan plan = 2;
+  string plan_id = 2;
   bool is_active = 3;
   bool auto_renew = 4;
-  Coupon coupon = 5;
+  string coupon_id = 5;
   string payment_method = 6;
   int64 last_payment_date = 7;
   int64 expires_at = 8;

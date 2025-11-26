@@ -5,10 +5,7 @@ option java_package = "com.datarango.grpc.course";
 
 package course;
 
-import "category.proto";
-import "industry.proto";
-import "quiz.proto";
-import "user.proto";
+// Removed imports to avoid circular dependencies - using string IDs instead
 
 service CourseService {
   rpc CreateCourse(CreateCourseRequest) returns (Course);
@@ -31,17 +28,17 @@ message Course {
   string title = 2;
   string description = 3;
   string difficulty_level = 4;
-  Industry industry = 5;
-  Category category = 6;
+  string industry_id = 5;
+  string category_id = 6;
   repeated Module modules = 7;
   int64 duration_minutes = 8;
   int64 average_rating = 9;
   int64 enrollments_count = 10;
   bool is_published = 11;
-  User creator = 12;
+  string creator_user_id = 12;
   Pricing pricing = 13;
   string image_url = 14;
-  User created_by = 15;
+  string created_by_user_id = 15;
   int64 created_at = 16;
   int64 updated_at = 17;
 }
@@ -56,8 +53,8 @@ message Module {
   string transcript = 7;
   repeated string attachments = 8;
   bool is_completed = 9;
-  repeated Quiz quiz = 10;
-  User created_by = 11;
+  repeated string quiz_ids = 10;
+  string created_by_user_id = 11;
   int64 created_at = 12;
   int64 updated_at = 13;
 }
@@ -70,7 +67,7 @@ message CourseEnrollment {
   int64 completed_at = 5;
   bool is_completed = 6;
   int32 progress_percentage = 7;
-  User created_by = 8;
+  string created_by_user_id = 8;
   int64 created_at = 9;
   int64 updated_at = 10;
 }
@@ -94,7 +91,7 @@ message Video {
   int32 duration_seconds = 6;
   string transcript = 7;
   int32 sequence_number = 8;
-  User created_by = 9;
+  string created_by_user_id = 9;
   int64 created_at = 10;
   int64 updated_at = 11;
 }

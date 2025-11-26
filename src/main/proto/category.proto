@@ -5,7 +5,7 @@ option java_package = "com.datarango.grpc.category";
 
 package category;
 
-import "user.proto";
+// Removed user.proto import to avoid circular dependency
 
 service CategoryService {
   rpc CreateCategory(CreateCategoryRequest) returns (Category);
@@ -19,7 +19,7 @@ message Category {
   string id = 1;
   string name = 2;
   string description = 3;
-  User created_by = 4;
+  string created_by_user_id = 4;
   int64 created_at = 5;
   string parent_id = 6;
   bool is_active = 7;

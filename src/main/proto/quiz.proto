@@ -5,7 +5,7 @@ option java_package = "com.datarango.grpc.quiz";
 
 package quiz;
 
-import "user.proto";
+// Removed user.proto import to avoid circular dependency
 
 service QuizService {
   rpc CreateQuiz(CreateQuizRequest) returns (Quiz);
@@ -27,7 +27,7 @@ message Quiz {
   int32 sequence_number = 5;
   int32 duration_seconds = 6;
   repeated QuizQuestion questions = 7;
-  User created_by = 8;
+  string created_by_user_id = 8;
   int64 created_at = 9;
   int64 updated_at = 10;
 }
@@ -38,7 +38,7 @@ message QuizQuestion {
   string question_text = 3;
   int32 points = 4;
   repeated QuizOption options = 5;
-  User created_by = 6;
+  string created_by_user_id = 6;
   int64 created_at = 7;
   int64 updated_at = 8;
 }
@@ -48,7 +48,7 @@ message QuizOption {
   string question_id = 2;
   string option_text = 3;
   bool is_correct = 4;
-  User created_by = 5;
+  string created_by_user_id = 5;
   int64 created_at = 6;
   int64 updated_at = 7;
 }
@@ -58,12 +58,12 @@ message QuizAttempt {
   int32 pass = 2;
   string quiz_id = 3;
   string user_id = 4;
-  User user = 5;
+  string user_id_ref = 5;
   int32 score = 6;
   int64 started_at = 7;
   int64 finished_at = 8;
   repeated QuizAnswer answers = 9;
-  User created_by = 10;
+  string created_by_user_id = 10;
   int64 created_at = 11;
   int64 updated_at = 12;
 }

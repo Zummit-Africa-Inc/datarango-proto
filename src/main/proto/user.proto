@@ -5,16 +5,14 @@ option java_package = "com.datarango.grpc.user";
 
 package user;
 
-import "subscription.proto";
-import "business.proto";
-import "badge.proto";
+// Forward declarations - actual imports will be handled differently to avoid circular dependencies
 
 service UserService {
   rpc CreateUser(CreateUserRequest) returns (UserResponse);
   rpc UpdateUser(UpdateUserRequest) returns (UserResponse);
   rpc DeleteUser(DeleteUserRequest) returns (UserResponse);
   rpc GetUsers(GetUsersRequest) returns (GetUsersResponse);
-  rpc GetUsers(GetUserRequest) returns (GetUserResponse);
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
   rpc Login(LoginRequest) returns (LoginResponse);
 }
 
@@ -56,9 +54,9 @@ message User {
   string referral_code = 21;
   int32 referral_count = 22;
   Provider provider = 23;
-  Subscription subscription = 24;
-  repeated Badge badges = 25;
-  Business business = 26;
+  string subscription_id = 24;
+  repeated string badge_ids = 25;
+  string business_id = 26;
   int64 created_at = 27;
   int64 updated_at = 28;
 }
@@ -73,10 +71,10 @@ message CreateUserRequest {
 }
 
 message UpdateUserRequest {
-  optional string full_name = 1;
-  optional string password = 2;
-  optional string phone_number = 3;
-  optional string password = 4;
+  string user_id = 1;
+  optional string full_name = 2;
+  optional string password = 3;
+  optional string phone_number = 4;
   optional string avatar_url = 5;
   optional string country = 6;
 }
@@ -115,5 +113,11 @@ message LoginRequest {
 message LoginResponse {
   User user = 1;
   string access_token = 2;
-  string refresh_token = 2;
+  string refresh_token = 3;
+}
+
+message UserResponse {
+  User user = 1;
+  string message = 2;
+  bool success = 3;
 }

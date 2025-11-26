@@ -5,7 +5,7 @@ option java_package = "com.datarango.grpc.coupon";
 
 package coupon;
 
-import "user.proto";
+// Removed user.proto import to avoid circular dependency
 
 service CouponService {
   rpc CreateCoupon(CreateCouponRequest) returns (Coupon);
@@ -37,7 +37,7 @@ message Coupon {
   string applies_to = 12;
   int64 minimum_spend = 13;
   int64 created_at = 14;
-  User created_by = 15;
+  string created_by_user_id = 15;
   int64 updated_at = 16;
 }
 

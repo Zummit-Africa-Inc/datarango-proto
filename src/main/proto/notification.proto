@@ -5,7 +5,7 @@ option java_package = "com.datarango.grpc.notification";
 
 package notification;
 
-import "user.proto";
+// Removed user.proto import to avoid circular dependency
 
 service NotificationService {
   rpc CreateNotification(CreateNotificationRequest) returns (Notification);
@@ -31,7 +31,7 @@ message Notification {
   bool is_read = 6;
   string action_url = 7;
   string metadata = 8;
-  User created_by = 9;
+  string created_by_user_id = 9;
   int64 created_at = 10;
   int64 updated_at = 11;
 }

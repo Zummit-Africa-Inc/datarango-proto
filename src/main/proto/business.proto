@@ -5,8 +5,7 @@ option java_package = "com.datarango.grpc.business";
 
 package business;
 
-import "subscription.proto";
-import "user.proto";
+// Removed imports to avoid circular dependencies - using string IDs instead
 import "google/protobuf/empty.proto";
 
 service BusinessService {
@@ -24,8 +23,8 @@ message Business {
   string domain = 3;
   string email = 4;
   string logo_url = 5;
-  Subscription subscription = 6;
-  repeated User users = 7;
+  string subscription_id = 6;
+  repeated string user_ids = 7;
   int64 created_at = 8;
   int64 updated_at = 9;
 }
@@ -42,7 +41,7 @@ message UpdateBusinessRequest {
   optional string domain = 3;
   optional string email = 4;
   optional string logo_url = 5;
-  repeated User users = 6;
+  repeated string user_ids = 6;
 }
 
 message DeleteBusinessRequest {

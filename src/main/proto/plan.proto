@@ -5,7 +5,7 @@ option java_package = "com.datarango.grpc.plan";
 
 package plan;
 
-import "user.proto";
+// Removed user.proto import to avoid circular dependency
 
 service PlanService {
   rpc CreatePlan(CreatePlanRequest) returns (Plan);
@@ -34,7 +34,7 @@ message Plan {
   bool active = 10;
   int64 max_users = 11;
   repeated string features = 12;
-  User created_by = 13;
+  string created_by_user_id = 13;
   int64 created_at = 14;
   int64 updated_at = 15;
 }

@@ -5,10 +5,7 @@ option java_package = "com.datarango.grpc.challenge";
 
 package challenge;
 
-import "category.proto";
-import "industry.proto";
-import "badge.proto";
-import "user.proto";
+// Removed imports to avoid circular dependencies - using string IDs instead
 
 service ChallengeService {
   rpc CreateHackathon(CreateHackathonRequest) returns (Hackathon);
@@ -50,8 +47,8 @@ service ChallengeService {
 
 message Hackathon {
   string id = 1;
-  Industry industry = 3;
-  Category category = 5;
+  string industry_id = 3;
+  string category_id = 5;
   string title = 6;
   string description = 7;
   int64 start_date = 8;
@@ -61,7 +58,7 @@ message Hackathon {
   string prizes = 12;
   int32 max_team_size = 13;
   bool is_active = 14;
-  User creator = 15;
+  string creator_user_id = 15;
   string image_url = 16;
   int32 enrolled = 17;
   int32 submitted = 18;
@@ -72,20 +69,20 @@ message Hackathon {
 message HackathonParticipation {
   string id = 1;
   string user_id = 2;
-  User user = 3;
-  Hackathon hackathon = 5;
-  repeated User users = 6;
+  string user_id_ref = 3;
+  string hackathon_id = 5;
+  repeated string user_ids = 6;
   int64 registered_at = 7;
   string role = 8;
-  User created_by = 9;
+  string created_by_user_id = 9;
   int64 created_at = 10;
   int64 updated_at = 11;
 }
 
 message HackathonSubmission {
   string id = 1;
-  repeated User users = 2;
-  Hackathon hackathon = 4;
+  repeated string user_ids = 2;
+  string hackathon_id = 4;
   string project_description = 5;
   string github_url = 6;
   string demo_url = 7;
@@ -98,8 +95,8 @@ message HackathonSubmission {
 
 message Dataset {
   string id = 1;
-  Industry industry = 3;
-  Category category = 5;
+  string industry_id = 3;
+  string category_id = 5;
   string title = 6;
   string description = 7;
   string difficulty_level = 8;
@@ -109,10 +106,10 @@ message Dataset {
   int32 xp_reward = 12;
   int32 credit_reward = 13;
   string badge_id = 14;
-  Badge badge = 15;
+  string badge_id_ref = 15;
   bool is_active = 16;
   string creator_id = 17;
-  User created_by = 18;
+  string created_by_user_id = 18;
   int64 created_at = 19;
   int64 updated_at = 20;
 }
@@ -120,7 +117,7 @@ message Dataset {
 message DatasetSubmission {
   string id = 1;
   string user_id = 2;
-  User user = 3;
+  string user_id_ref = 3;
   string challenge_id = 4;
   string submission_text = 5;
   string submission_file = 6;
@@ -128,7 +125,7 @@ message DatasetSubmission {
   string status = 8;
   string feedback = 9;
   int32 score = 10;
-  User created_by = 11;
+  string created_by_user_id = 11;
   int64 created_at = 12;
   int64 updated_at = 13;
 }
@@ -136,11 +133,11 @@ message DatasetSubmission {
 message Game {
   string id = 1;
   string category_id = 2;
-  Category category = 3;
+  string category_id_ref = 3;
   string title = 4;
   string description = 5;
   string image_url = 6;
-  User created_by = 7;
+  string created_by_user_id = 7;
   int64 created_at = 8;
   int64 updated_at = 9;
 }
@@ -156,7 +153,7 @@ message GameData {
   repeated string words = 9;
   repeated string correct_words = 10;
   int32 time_limit_minutes = 11;
-  User created_by = 12;
+  string created_by_user_id = 12;
   int64 created_at = 13;
   int64 updated_at = 14;
 }
@@ -197,12 +194,12 @@ message ListHackathonsResponse {
 message RegisterForHackathonRequest {
   string hackathon_id = 1;
   string user_id = 2;
-  repeated User users = 3;
+  repeated string user_ids = 3;
   string role = 4;
 }
 
 message SubmitHackathonRequest {
-  repeated User users = 1;
+  repeated string user_ids = 1;
   string hackathon_id = 2;
   string project_description = 3;
   string github_url = 4;
