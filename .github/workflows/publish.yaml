@@ -1,9 +1,9 @@
 name: Publish Proto Package
 
 on:
-  push:
-    tags:
-      - 'v*'
+  pull_request:
+    branches:
+      - main
 
 jobs:
   publish:
@@ -23,6 +23,6 @@ jobs:
           cache: maven
       
       - name: Build and Publish
-        run: mvn -B clean deploy
+        run: mvn -B deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
