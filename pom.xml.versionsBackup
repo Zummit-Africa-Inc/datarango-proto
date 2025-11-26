@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.datarango</groupId>
 	<artifactId>proto</artifactId>
-	<version>1.0.5</version>
+	<version>1.0.4</version>
 	<name>proto</name>
 	<description>shared gRPC proto definitions for datarango microservices</description>
 	<url />
