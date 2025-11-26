@@ -23,6 +23,6 @@ jobs:
           cache: maven
       
       - name: Build and Publish
-        run: mvn -B clean deploy
+        run: mvn deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
