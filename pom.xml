@@ -65,6 +65,13 @@
 
 	</dependencies>
 
+	<repositories>
+		<repository>
+			<id>github</id>
+			<url>https://maven.pkg.github.com/Zummit-Africa-Inc/proto</url>
+		</repository>
+	</repositories>
+
 	<build>
 		<extensions>
 			<extension>

@@ -16,7 +16,7 @@
         </repository>
         <repository>
           <id>github</id>
-          <url>https://maven.pkg.github.com/Zummit-Africa-Inc/datarango-proto</url>
+          <url>https://maven.pkg.github.com/Zummit-Africa-Inc/proto</url>
           <snapshots>
             <enabled>true</enabled>
           </snapshots>
@@ -28,8 +28,8 @@
   <servers>
     <server>
       <id>github</id>
-      <username>${{ secrets.GITHUB_ACTOR }}</username>
-      <password>${{ secrets.GITHUB_TOKEN }}</password>
+      <username>Zummit-Africa-Inc</username>
+      <password>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</password>
     </server>
   </servers>
 </settings>
