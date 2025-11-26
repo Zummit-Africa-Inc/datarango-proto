@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.datarango</groupId>
 	<artifactId>proto</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>proto</name>
 	<description>shared gRPC proto definitions for datarango microservices</description>
 	<url />
@@ -78,6 +78,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
 			</plugin>
 
 			<plugin>
