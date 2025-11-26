@@ -1,0 +1,166 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.datarango.grpc.message";
+
+package message;
+
+import "user.proto";
+
+service MessageService {
+  rpc CreateChat(CreateChatRequest) returns (Chat);
+  rpc GetChat(GetChatRequest) returns (Chat);
+  rpc UpdateChat(UpdateChatRequest) returns (Chat);
+  rpc DeleteChat(DeleteChatRequest) returns (DeleteChatResponse);
+  rpc ListChats(ListChatsRequest) returns (ListChatsResponse);
+  rpc SendMessage(SendMessageRequest) returns (Message);
+  rpc GetMessage(GetMessageRequest) returns (Message);
+  rpc UpdateMessage(UpdateMessageRequest) returns (Message);
+  rpc DeleteMessage(DeleteMessageRequest) returns (DeleteMessageResponse);
+  rpc ListMessages(ListMessagesRequest) returns (ListMessagesResponse);
+  rpc AddReaction(AddReactionRequest) returns (AddReactionResponse);
+}
+
+enum ChatType {
+  CHAT_DIRECT = 0;
+  CHAT_GROUP = 1;
+  CHAT_FORUM = 2;
+}
+
+enum MessageType {
+  MESSAGE_TEXT = 0;
+  MESSAGE_IMAGE = 1;
+  MESSAGE_FILE = 2;
+  MESSAGE_SYSTEM = 3;
+}
+
+enum ReactionType {
+  REACTION_LIKE = 0;
+  REACTION_DISLIKE = 1;
+  REACTION_LOVE = 2;
+  REACTION_LAUGH = 3;
+  REACTION_ANGRY = 4;
+}
+
+message Reaction {
+  string id = 1;
+  ReactionType type = 2;
+  User user = 3;
+  int64 created_at = 4;
+}
+
+message Chat {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  ChatType type = 4;
+  repeated string participant_ids = 5;
+  string last_message_id = 6;
+  int64 last_activity = 7;
+  bool is_active = 8;
+  User created_by = 9;
+  int64 created_at = 10;
+  int64 updated_at = 11;
+}
+
+message Message {
+  string id = 1;
+  string chat_id = 2;
+  string content = 3;
+  MessageType type = 4;
+  User sender = 5;
+  string reply_to_id = 6;
+  repeated Reaction reactions = 7;
+  bool is_edited = 8;
+  bool is_deleted = 9;
+  string file_url = 10;
+  int64 created_at = 11;
+  int64 updated_at = 12;
+}
+
+message CreateChatRequest {
+  string name = 1;
+  string description = 2;
+  ChatType type = 3;
+  repeated string participant_ids = 4;
+}
+
+message GetChatRequest {
+  string id = 1;
+}
+
+message UpdateChatRequest {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  repeated string participant_ids = 4;
+}
+
+message DeleteChatRequest {
+  string id = 1;
+}
+
+message DeleteChatResponse {
+  bool success = 1;
+}
+
+message ListChatsRequest {
+  string user_id = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+message ListChatsResponse {
+  repeated Chat chats = 1;
+  int32 total_count = 2;
+  int32 page = 3;
+  int32 size = 4;
+}
+
+message SendMessageRequest {
+  string chat_id = 1;
+  string content = 2;
+  MessageType type = 3;
+  string reply_to_id = 4;
+  string file_url = 5;
+}
+
+message GetMessageRequest {
+  string id = 1;
+}
+
+message UpdateMessageRequest {
+  string id = 1;
+  string content = 2;
+}
+
+message DeleteMessageRequest {
+  string id = 1;
+}
+
+message DeleteMessageResponse {
+  bool success = 1;
+}
+
+message ListMessagesRequest {
+  string chat_id = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+message ListMessagesResponse {
+  repeated Message messages = 1;
+  int32 total_count = 2;
+  int32 page = 3;
+  int32 size = 4;
+}
+
+message AddReactionRequest {
+  string message_id = 1;
+  ReactionType type = 2;
+}
+
+message AddReactionResponse {
+  bool success = 1;
+  Reaction reaction = 2;
+}

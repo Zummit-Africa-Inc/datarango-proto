@@ -1,0 +1,137 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.datarango.grpc.quiz";
+
+package quiz;
+
+import "user.proto";
+
+service QuizService {
+  rpc CreateQuiz(CreateQuizRequest) returns (Quiz);
+  rpc GetQuiz(GetQuizRequest) returns (Quiz);
+  rpc UpdateQuiz(UpdateQuizRequest) returns (Quiz);
+  rpc DeleteQuiz(DeleteQuizRequest) returns (DeleteQuizResponse);
+  rpc ListQuizzes(ListQuizzesRequest) returns (ListQuizzesResponse);
+  rpc StartQuizAttempt(StartQuizAttemptRequest) returns (QuizAttempt);
+  rpc SubmitQuizAnswer(SubmitQuizAnswerRequest) returns (SubmitQuizAnswerResponse);
+  rpc FinishQuizAttempt(FinishQuizAttemptRequest) returns (QuizAttempt);
+  rpc GetQuizAttempt(GetQuizAttemptRequest) returns (QuizAttempt);
+}
+
+message Quiz {
+  string id = 1;
+  string module_id = 2;
+  string title = 3;
+  string description = 4;
+  int32 sequence_number = 5;
+  int32 duration_seconds = 6;
+  repeated QuizQuestion questions = 7;
+  User created_by = 8;
+  int64 created_at = 9;
+  int64 updated_at = 10;
+}
+
+message QuizQuestion {
+  string id = 1;
+  string quiz_id = 2;
+  string question_text = 3;
+  int32 points = 4;
+  repeated QuizOption options = 5;
+  User created_by = 6;
+  int64 created_at = 7;
+  int64 updated_at = 8;
+}
+
+message QuizOption {
+  string id = 1;
+  string question_id = 2;
+  string option_text = 3;
+  bool is_correct = 4;
+  User created_by = 5;
+  int64 created_at = 6;
+  int64 updated_at = 7;
+}
+
+message QuizAttempt {
+  string id = 1;
+  int32 pass = 2;
+  string quiz_id = 3;
+  string user_id = 4;
+  User user = 5;
+  int32 score = 6;
+  int64 started_at = 7;
+  int64 finished_at = 8;
+  repeated QuizAnswer answers = 9;
+  User created_by = 10;
+  int64 created_at = 11;
+  int64 updated_at = 12;
+}
+
+message QuizAnswer {
+  string question_id = 1;
+  string option_id = 2;
+}
+
+message CreateQuizRequest {
+  string module_id = 1;
+  string title = 2;
+  string description = 3;
+  int32 sequence_number = 4;
+  int32 duration_seconds = 5;
+}
+
+message GetQuizRequest {
+  string id = 1;
+}
+
+message UpdateQuizRequest {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  int32 sequence_number = 4;
+  int32 duration_seconds = 5;
+}
+
+message DeleteQuizRequest {
+  string id = 1;
+}
+
+message DeleteQuizResponse {
+  bool success = 1;
+}
+
+message ListQuizzesRequest {
+  string module_id = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+message ListQuizzesResponse {
+  repeated Quiz quizzes = 1;
+  int32 total_count = 2;
+  int32 page = 3;
+  int32 size = 4;
+}
+
+message StartQuizAttemptRequest {
+  string quiz_id = 1;
+  string user_id = 2;
+}
+
+message SubmitQuizAnswerRequest {
+  string attempt_id = 1;
+  QuizAnswer answer = 2;
+}
+
+message SubmitQuizAnswerResponse {
+  bool success = 1;
+}
+
+message FinishQuizAttemptRequest {
+  string attempt_id = 1;
+}
+
+message GetQuizAttemptRequest {
+  string id = 1;
+}

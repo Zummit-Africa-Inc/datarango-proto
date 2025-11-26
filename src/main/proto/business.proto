@@ -7,16 +7,76 @@ package business;
 
 import "subscription.proto";
 import "user.proto";
+import "google/protobuf/empty.proto";
 
-service BusinessService {}
+service BusinessService {
+  rpc CreateBusiness(CreateBusinessRequest) returns (GetBusinessResponse);
+  rpc UpdateBusiness(UpdateBusinessRequest) returns (GetBusinessResponse);
+  rpc DeleteBusiness(DeleteBusinessRequest) returns (google.protobuf.Empty);
+  rpc GetBusiness(GetBusinessRequest) returns (GetBusinessResponse);
+  rpc GetBusinesses(GetBusinessesRequest) returns (GetBusinessesResponse);
+  rpc Login(LoginRequest) returns (LoginResponse);
+}
 
 message Business {
   string id = 1;
   string name = 2;
   string domain = 3;
   string email = 4;
-  Subscription subscription = 5;
-  repeated User user = 6;
-  int64 created_at = 7;
-  int64 updated_at = 8;
+  string logo_url = 5;
+  Subscription subscription = 6;
+  repeated User users = 7;
+  int64 created_at = 8;
+  int64 updated_at = 9;
+}
+
+message CreateBusinessRequest {
+  string name = 1;
+  string domain = 2;
+  string email = 3;
+}
+
+message UpdateBusinessRequest {
+  string id = 1;
+  optional string name = 2;
+  optional string domain = 3;
+  optional string email = 4;
+  optional string logo_url = 5;
+  repeated User users = 6;
+}
+
+message DeleteBusinessRequest {
+  string id = 1;
+}
+
+message GetBusinessRequest {
+  string id = 1;
+}
+
+message GetBusinessesRequest {
+  optional int64 page = 1;
+  optional int64 size = 2;
+  optional string name = 3;
+}
+
+message GetBusinessResponse {
+  Business business = 1;
+}
+
+message GetBusinessesResponse {
+  repeated Business businesses = 1;
+  int64 total_count = 2;
+  int64 page = 3;
+  int64 size = 4;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  Business business = 1;
+  string access_token = 2;
+  string refresh_token = 3;
 }

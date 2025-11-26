@@ -9,13 +9,27 @@ import "subscription.proto";
 import "business.proto";
 import "badge.proto";
 
-service UserService {}
+service UserService {
+  rpc CreateUser(CreateUserRequest) returns (UserResponse);
+  rpc UpdateUser(UpdateUserRequest) returns (UserResponse);
+  rpc DeleteUser(DeleteUserRequest) returns (UserResponse);
+  rpc GetUsers(GetUsersRequest) returns (GetUsersResponse);
+  rpc GetUsers(GetUserRequest) returns (GetUserResponse);
+  rpc Login(LoginRequest) returns (LoginResponse);
+}
 
 enum Role {
   ROLE_USER = 0;
   ROLE_BUSINESS_ADMIN = 1;
   ROLE_ADMIN = 2;
   ROLE_SUPER_ADMIN = 3;
+}
+
+enum Provider {
+  PROVIDER_CUSTOM = 0;
+  PROVIDER_BUSINESS = 1;
+  PROVIDER_GOOGLE = 2;
+  PROVIDER_GITHUB = 3;
 }
 
 message User {
@@ -41,10 +55,65 @@ message User {
   bool verified = 20;
   string referral_code = 21;
   int32 referral_count = 22;
-  string provider = 23;
+  Provider provider = 23;
   Subscription subscription = 24;
   repeated Badge badges = 25;
   Business business = 26;
   int64 created_at = 27;
   int64 updated_at = 28;
+}
+
+message CreateUserRequest {
+  string full_name = 2;
+  string username = 3;
+  string email = 4;
+  Provider provider = 5;
+  optional string password = 6;
+  optional string business_id = 7;
+}
+
+message UpdateUserRequest {
+  optional string full_name = 1;
+  optional string password = 2;
+  optional string phone_number = 3;
+  optional string password = 4;
+  optional string avatar_url = 5;
+  optional string country = 6;
+}
+
+message DeleteUserRequest {
+  User user = 1;
+}
+
+message GetUserRequest {
+  string id = 1;
+}
+
+message GetUserResponse {
+  User user = 1;
+}
+
+message GetUsersRequest {
+  optional int64 page = 1;
+  optional int64 size = 2;
+  optional string business_id = 3;
+  optional string name = 4;
+}
+
+message GetUsersResponse {
+  repeated User user = 1;
+  int64 total_count = 2;
+  int64 page = 3;
+  int64 size = 4;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  User user = 1;
+  string access_token = 2;
+  string refresh_token = 2;
 }

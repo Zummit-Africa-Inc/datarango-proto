@@ -1,0 +1,470 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.datarango.grpc.challenge";
+
+package challenge;
+
+import "category.proto";
+import "industry.proto";
+import "badge.proto";
+import "user.proto";
+
+service ChallengeService {
+  rpc CreateHackathon(CreateHackathonRequest) returns (Hackathon);
+  rpc GetHackathon(GetHackathonRequest) returns (Hackathon);
+  rpc UpdateHackathon(UpdateHackathonRequest) returns (Hackathon);
+  rpc DeleteHackathon(DeleteHackathonRequest) returns (DeleteHackathonResponse);
+  rpc ListHackathons(ListHackathonsRequest) returns (ListHackathonsResponse);
+  rpc RegisterForHackathon(RegisterForHackathonRequest) returns (HackathonParticipation);
+  rpc GetHackathonParticipation(GetHackathonParticipationRequest) returns (HackathonParticipation);
+  rpc UpdateHackathonParticipation(UpdateHackathonParticipationRequest) returns (HackathonParticipation);
+  rpc DeleteHackathonParticipation(DeleteHackathonParticipationRequest) returns (DeleteHackathonParticipationResponse);
+  rpc ListHackathonParticipations(ListHackathonParticipationsRequest) returns (ListHackathonParticipationsResponse);
+  rpc SubmitHackathon(SubmitHackathonRequest) returns (HackathonSubmission);
+  rpc GetHackathonSubmission(GetHackathonSubmissionRequest) returns (HackathonSubmission);
+  rpc UpdateHackathonSubmission(UpdateHackathonSubmissionRequest) returns (HackathonSubmission);
+  rpc DeleteHackathonSubmission(DeleteHackathonSubmissionRequest) returns (DeleteHackathonSubmissionResponse);
+  rpc ListHackathonSubmissions(ListHackathonSubmissionsRequest) returns (ListHackathonSubmissionsResponse);
+  rpc CreateDataset(CreateDatasetRequest) returns (Dataset);
+  rpc GetDataset(GetDatasetRequest) returns (Dataset);
+  rpc UpdateDataset(UpdateDatasetRequest) returns (Dataset);
+  rpc DeleteDataset(DeleteDatasetRequest) returns (DeleteDatasetResponse);
+  rpc ListDatasets(ListDatasetsRequest) returns (ListDatasetsResponse);
+  rpc SubmitDataset(SubmitDatasetRequest) returns (DatasetSubmission);
+  rpc GetDatasetSubmission(GetDatasetSubmissionRequest) returns (DatasetSubmission);
+  rpc UpdateDatasetSubmission(UpdateDatasetSubmissionRequest) returns (DatasetSubmission);
+  rpc DeleteDatasetSubmission(DeleteDatasetSubmissionRequest) returns (DeleteDatasetSubmissionResponse);
+  rpc ListDatasetSubmissions(ListDatasetSubmissionsRequest) returns (ListDatasetSubmissionsResponse);
+  rpc CreateGame(CreateGameRequest) returns (Game);
+  rpc GetGame(GetGameRequest) returns (Game);
+  rpc UpdateGame(UpdateGameRequest) returns (Game);
+  rpc DeleteGame(DeleteGameRequest) returns (DeleteGameResponse);
+  rpc ListGames(ListGamesRequest) returns (ListGamesResponse);
+  rpc CreateGameData(CreateGameDataRequest) returns (GameData);
+  rpc GetGameData(GetGameDataRequest) returns (GameData);
+  rpc UpdateGameData(UpdateGameDataRequest) returns (GameData);
+  rpc DeleteGameData(DeleteGameDataRequest) returns (DeleteGameDataResponse);
+  rpc ListGameData(ListGameDataRequest) returns (ListGameDataResponse);
+}
+
+message Hackathon {
+  string id = 1;
+  Industry industry = 3;
+  Category category = 5;
+  string title = 6;
+  string description = 7;
+  int64 start_date = 8;
+  int64 end_date = 9;
+  int64 registration_deadline = 10;
+  string rules = 11;
+  string prizes = 12;
+  int32 max_team_size = 13;
+  bool is_active = 14;
+  User creator = 15;
+  string image_url = 16;
+  int32 enrolled = 17;
+  int32 submitted = 18;
+  int64 created_at = 20;
+  int64 updated_at = 21;
+}
+
+message HackathonParticipation {
+  string id = 1;
+  string user_id = 2;
+  User user = 3;
+  Hackathon hackathon = 5;
+  repeated User users = 6;
+  int64 registered_at = 7;
+  string role = 8;
+  User created_by = 9;
+  int64 created_at = 10;
+  int64 updated_at = 11;
+}
+
+message HackathonSubmission {
+  string id = 1;
+  repeated User users = 2;
+  Hackathon hackathon = 4;
+  string project_description = 5;
+  string github_url = 6;
+  string demo_url = 7;
+  int64 submitted_at = 8;
+  int32 judges_score = 9;
+  string feedback = 10;
+  int64 created_at = 12;
+  int64 updated_at = 13;
+}
+
+message Dataset {
+  string id = 1;
+  Industry industry = 3;
+  Category category = 5;
+  string title = 6;
+  string description = 7;
+  string difficulty_level = 8;
+  int64 start_date = 9;
+  int64 end_date = 10;
+  string acceptance_criteria = 11;
+  int32 xp_reward = 12;
+  int32 credit_reward = 13;
+  string badge_id = 14;
+  Badge badge = 15;
+  bool is_active = 16;
+  string creator_id = 17;
+  User created_by = 18;
+  int64 created_at = 19;
+  int64 updated_at = 20;
+}
+
+message DatasetSubmission {
+  string id = 1;
+  string user_id = 2;
+  User user = 3;
+  string challenge_id = 4;
+  string submission_text = 5;
+  string submission_file = 6;
+  int64 submitted_at = 7;
+  string status = 8;
+  string feedback = 9;
+  int32 score = 10;
+  User created_by = 11;
+  int64 created_at = 12;
+  int64 updated_at = 13;
+}
+
+message Game {
+  string id = 1;
+  string category_id = 2;
+  Category category = 3;
+  string title = 4;
+  string description = 5;
+  string image_url = 6;
+  User created_by = 7;
+  int64 created_at = 8;
+  int64 updated_at = 9;
+}
+
+message GameData {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  int32 xp_reward = 4;
+  int32 credit_reward = 5;
+  bool is_active = 6;
+  string image_url = 8;
+  repeated string words = 9;
+  repeated string correct_words = 10;
+  int32 time_limit_minutes = 11;
+  User created_by = 12;
+  int64 created_at = 13;
+  int64 updated_at = 14;
+}
+
+message CreateHackathonRequest {
+  string industry_id = 1;
+  string category_id = 2;
+  string title = 3;
+  string description = 4;
+  int64 start_date = 5;
+  int64 end_date = 6;
+  int64 registration_deadline = 7;
+  string rules = 8;
+  string prizes = 9;
+  int32 max_team_size = 10;
+  string image_url = 11;
+}
+
+message GetHackathonRequest {
+  string id = 1;
+}
+
+message ListHackathonsRequest {
+  string industry_id = 1;
+  string category_id = 2;
+  bool active_only = 3;
+  int32 page = 4;
+  int32 size = 5;
+}
+
+message ListHackathonsResponse {
+  repeated Hackathon hackathons = 1;
+  int32 total_count = 2;
+  int32 page = 3;
+  int32 size = 4;
+}
+
+message RegisterForHackathonRequest {
+  string hackathon_id = 1;
+  string user_id = 2;
+  repeated User users = 3;
+  string role = 4;
+}
+
+message SubmitHackathonRequest {
+  repeated User users = 1;
+  string hackathon_id = 2;
+  string project_description = 3;
+  string github_url = 4;
+  string demo_url = 5;
+}
+
+message CreateDatasetRequest {
+  string industry_id = 1;
+  string category_id = 2;
+  string title = 3;
+  string description = 4;
+  string difficulty_level = 5;
+  int64 start_date = 6;
+  int64 end_date = 7;
+  string acceptance_criteria = 8;
+  int32 xp_reward = 9;
+  int32 credit_reward = 10;
+  string badge_id = 11;
+}
+
+message GetDatasetRequest {
+  string id = 1;
+}
+
+message SubmitDatasetRequest {
+  string user_id = 1;
+  string challenge_id = 2;
+  string submission_text = 3;
+  string submission_file = 4;
+}
+
+message CreateGameRequest {
+  string category_id = 1;
+  string title = 2;
+  string description = 3;
+  string image_url = 4;
+}
+
+message GetGameRequest {
+  string id = 1;
+}
+
+message UpdateHackathonRequest {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  int64 start_date = 4;
+  int64 end_date = 5;
+  int64 registration_deadline = 6;
+  string rules = 7;
+  string prizes = 8;
+  int32 max_team_size = 9;
+  bool is_active = 10;
+  string image_url = 11;
+}
+
+message DeleteHackathonRequest {
+  string id = 1;
+}
+
+message DeleteHackathonResponse {
+  bool success = 1;
+}
+
+message GetHackathonParticipationRequest {
+  string id = 1;
+}
+
+message UpdateHackathonParticipationRequest {
+  string id = 1;
+  string role = 2;
+}
+
+message DeleteHackathonParticipationRequest {
+  string id = 1;
+}
+
+message DeleteHackathonParticipationResponse {
+  bool success = 1;
+}
+
+message ListHackathonParticipationsRequest {
+  string hackathon_id = 1;
+  string user_id = 2;
+  int32 page = 3;
+  int32 size = 4;
+}
+
+message ListHackathonParticipationsResponse {
+  repeated HackathonParticipation participations = 1;
+  int32 total_count = 2;
+}
+
+message GetHackathonSubmissionRequest {
+  string id = 1;
+}
+
+message UpdateHackathonSubmissionRequest {
+  string id = 1;
+  string project_description = 2;
+  string github_url = 3;
+  string demo_url = 4;
+  int32 judges_score = 5;
+  string feedback = 6;
+}
+
+message DeleteHackathonSubmissionRequest {
+  string id = 1;
+}
+
+message DeleteHackathonSubmissionResponse {
+  bool success = 1;
+}
+
+message ListHackathonSubmissionsRequest {
+  string hackathon_id = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+message ListHackathonSubmissionsResponse {
+  repeated HackathonSubmission submissions = 1;
+  int32 total_count = 2;
+}
+
+message UpdateDatasetRequest {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  string difficulty_level = 4;
+  int64 start_date = 5;
+  int64 end_date = 6;
+  string acceptance_criteria = 7;
+  int32 xp_reward = 8;
+  int32 credit_reward = 9;
+  bool is_active = 10;
+}
+
+message DeleteDatasetRequest {
+  string id = 1;
+}
+
+message DeleteDatasetResponse {
+  bool success = 1;
+}
+
+message ListDatasetsRequest {
+  string industry_id = 1;
+  string category_id = 2;
+  bool active_only = 3;
+  int32 page = 4;
+  int32 size = 5;
+}
+
+message ListDatasetsResponse {
+  repeated Dataset datasets = 1;
+  int32 total_count = 2;
+}
+
+message GetDatasetSubmissionRequest {
+  string id = 1;
+}
+
+message UpdateDatasetSubmissionRequest {
+  string id = 1;
+  string submission_text = 2;
+  string submission_file = 3;
+  string status = 4;
+  string feedback = 5;
+  int32 score = 6;
+}
+
+message DeleteDatasetSubmissionRequest {
+  string id = 1;
+}
+
+message DeleteDatasetSubmissionResponse {
+  bool success = 1;
+}
+
+message ListDatasetSubmissionsRequest {
+  string challenge_id = 1;
+  string user_id = 2;
+  string status = 3;
+  int32 page = 4;
+  int32 size = 5;
+}
+
+message ListDatasetSubmissionsResponse {
+  repeated DatasetSubmission submissions = 1;
+  int32 total_count = 2;
+}
+
+message UpdateGameRequest {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  string image_url = 4;
+}
+
+message DeleteGameRequest {
+  string id = 1;
+}
+
+message DeleteGameResponse {
+  bool success = 1;
+}
+
+message ListGamesRequest {
+  string category_id = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+message ListGamesResponse {
+  repeated Game games = 1;
+  int32 total_count = 2;
+}
+
+message CreateGameDataRequest {
+  string title = 1;
+  string description = 2;
+  int32 xp_reward = 3;
+  int32 credit_reward = 4;
+  string image_url = 5;
+  repeated string words = 6;
+  repeated string correct_words = 7;
+  int32 time_limit_minutes = 8;
+}
+
+message GetGameDataRequest {
+  string id = 1;
+}
+
+message UpdateGameDataRequest {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  int32 xp_reward = 4;
+  int32 credit_reward = 5;
+  bool is_active = 6;
+  string image_url = 7;
+  repeated string words = 8;
+  repeated string correct_words = 9;
+  int32 time_limit_minutes = 10;
+}
+
+message DeleteGameDataRequest {
+  string id = 1;
+}
+
+message DeleteGameDataResponse {
+  bool success = 1;
+}
+
+message ListGameDataRequest {
+  bool active_only = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+message ListGameDataResponse {
+  repeated GameData game_data = 1;
+  int32 total_count = 2;
+}

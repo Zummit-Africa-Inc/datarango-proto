@@ -8,7 +8,14 @@ package subscription;
 import "coupon.proto";
 import "plan.proto";
 
-service SubscriptionService {}
+service SubscriptionService {
+  rpc CreateSubscription(CreateSubscriptionRequest) returns (Subscription);
+  rpc GetSubscription(GetSubscriptionRequest) returns (Subscription);
+  rpc UpdateSubscription(UpdateSubscriptionRequest) returns (Subscription);
+  rpc CancelSubscription(CancelSubscriptionRequest) returns (CancelSubscriptionResponse);
+  rpc ListSubscriptions(ListSubscriptionsRequest) returns (ListSubscriptionsResponse);
+  rpc RenewSubscription(RenewSubscriptionRequest) returns (RenewSubscriptionResponse);
+}
 
 message Subscription {
   string id  = 1;
@@ -21,4 +28,54 @@ message Subscription {
   int64 expires_at = 8;
   int64 created_at = 9;
   int64 updated_at = 10;
+}
+
+message CreateSubscriptionRequest {
+  string plan_id = 1;
+  string coupon_id = 2;
+  string payment_method = 3;
+  bool auto_renew = 4;
+}
+
+message GetSubscriptionRequest {
+  string id = 1;
+}
+
+message UpdateSubscriptionRequest {
+  string id = 1;
+  string plan_id = 2;
+  string coupon_id = 3;
+  string payment_method = 4;
+  bool auto_renew = 5;
+}
+
+message CancelSubscriptionRequest {
+  string id = 1;
+}
+
+message CancelSubscriptionResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message ListSubscriptionsRequest {
+  int32 page = 1;
+  int32 size = 2;
+  bool active_only = 3;
+}
+
+message ListSubscriptionsResponse {
+  repeated Subscription subscriptions = 1;
+  int32 total_count = 2;
+  int32 page = 3;
+  int32 size = 4;
+}
+
+message RenewSubscriptionRequest {
+  string id = 1;
+}
+
+message RenewSubscriptionResponse {
+  bool success = 1;
+  int64 new_expiry_date = 2;
 }

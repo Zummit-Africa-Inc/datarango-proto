@@ -7,7 +7,13 @@ package plan;
 
 import "user.proto";
 
-service PlanService {}
+service PlanService {
+  rpc CreatePlan(CreatePlanRequest) returns (Plan);
+  rpc GetPlan(GetPlanRequest) returns (Plan);
+  rpc UpdatePlan(UpdatePlanRequest) returns (Plan);
+  rpc DeletePlan(DeletePlanRequest) returns (DeletePlanResponse);
+  rpc ListPlans(ListPlansRequest) returns (ListPlansResponse);
+}
 
 enum BillingCycle {
   BILLING_MONTHLY = 0;
@@ -31,4 +37,57 @@ message Plan {
   User created_by = 13;
   int64 created_at = 14;
   int64 updated_at = 15;
+}
+
+message CreatePlanRequest {
+  string name = 1;
+  string tier = 2;
+  string description = 3;
+  int64 monthly_price = 4;
+  int64 annual_price = 5;
+  string currency = 6;
+  BillingCycle billing_cycle = 7;
+  int64 trial_period_days = 8;
+  int64 max_users = 9;
+  repeated string features = 10;
+}
+
+message GetPlanRequest {
+  string id = 1;
+}
+
+message UpdatePlanRequest {
+  string id = 1;
+  string name = 2;
+  string tier = 3;
+  string description = 4;
+  int64 monthly_price = 5;
+  int64 annual_price = 6;
+  string currency = 7;
+  BillingCycle billing_cycle = 8;
+  int64 trial_period_days = 9;
+  bool active = 10;
+  int64 max_users = 11;
+  repeated string features = 12;
+}
+
+message DeletePlanRequest {
+  string id = 1;
+}
+
+message DeletePlanResponse {
+  bool success = 1;
+}
+
+message ListPlansRequest {
+  int32 page = 1;
+  int32 size = 2;
+  bool active_only = 3;
+}
+
+message ListPlansResponse {
+  repeated Plan plans = 1;
+  int32 total_count = 2;
+  int32 page = 3;
+  int32 size = 4;
 }

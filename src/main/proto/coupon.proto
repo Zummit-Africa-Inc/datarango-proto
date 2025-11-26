@@ -7,7 +7,14 @@ package coupon;
 
 import "user.proto";
 
-service CouponService {}
+service CouponService {
+  rpc CreateCoupon(CreateCouponRequest) returns (Coupon);
+  rpc GetCoupon(GetCouponRequest) returns (Coupon);
+  rpc UpdateCoupon(UpdateCouponRequest) returns (Coupon);
+  rpc DeleteCoupon(DeleteCouponRequest) returns (DeleteCouponResponse);
+  rpc ListCoupons(ListCouponsRequest) returns (ListCouponsResponse);
+  rpc ValidateCoupon(ValidateCouponRequest) returns (ValidateCouponResponse);
+}
 
 enum CouponType {
   TYPE_FREE = 0;
@@ -28,8 +35,72 @@ message Coupon {
   int64 valid_until = 10;
   bool is_active = 11;
   string applies_to = 12;
-  int64 minimum-spend = 13;
+  int64 minimum_spend = 13;
   int64 created_at = 14;
   User created_by = 15;
   int64 updated_at = 16;
+}
+
+message CreateCouponRequest {
+  string name = 1;
+  string description = 2;
+  CouponType type = 3;
+  int64 credit_amount = 4;
+  int64 discount_rate = 5;
+  int64 max_usage_count = 6;
+  int64 valid_from = 7;
+  int64 valid_until = 8;
+  string applies_to = 9;
+  int64 minimum_spend = 10;
+}
+
+message GetCouponRequest {
+  string id = 1;
+}
+
+message UpdateCouponRequest {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  int64 credit_amount = 4;
+  int64 discount_rate = 5;
+  int64 max_usage_count = 6;
+  int64 valid_from = 7;
+  int64 valid_until = 8;
+  bool is_active = 9;
+  string applies_to = 10;
+  int64 minimum_spend = 11;
+}
+
+message DeleteCouponRequest {
+  string id = 1;
+}
+
+message DeleteCouponResponse {
+  bool success = 1;
+}
+
+message ListCouponsRequest {
+  int32 page = 1;
+  int32 size = 2;
+  bool active_only = 3;
+}
+
+message ListCouponsResponse {
+  repeated Coupon coupons = 1;
+  int32 total_count = 2;
+  int32 page = 3;
+  int32 size = 4;
+}
+
+message ValidateCouponRequest {
+  string coupon_id = 1;
+  string user_id = 2;
+  int64 order_amount = 3;
+}
+
+message ValidateCouponResponse {
+  bool is_valid = 1;
+  string error_message = 2;
+  int64 discount_amount = 3;
 }
