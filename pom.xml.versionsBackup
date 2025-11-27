@@ -170,13 +170,13 @@
 		<repository>
 			<id>github</id>
 			<name>GitHub Packages</name>
-			<url>https://maven.pkg.github.com/Zummit-Africa-Inc/proto</url>
+			<url>https://maven.pkg.github.com/Zummit-Africa-Inc/datarango-proto</url>
 		</repository>
 
 		<snapshotRepository>
 			<id>github</id>
 			<name>GitHub Packages</name>
-			<url>https://maven.pkg.github.com/Zummit-Africa-Inc/proto</url>
+			<url>https://maven.pkg.github.com/Zummit-Africa-Inc/datarango-proto</url>
 		</snapshotRepository>
 
 	</distributionManagement>

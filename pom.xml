@@ -36,7 +36,7 @@
 	<repositories>
 		<repository>
 			<id>github</id>
-			<url>https://maven.pkg.github.com/Zummit-Africa-Inc/*</url>
+			<url>https://maven.pkg.github.com/Zummit-Africa-Inc/datarango-proto</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
@@ -58,10 +58,10 @@
 				<artifactId>protobuf-maven-plugin</artifactId>
 				<version>0.6.1</version>
 				<configuration>
-					<protocArtifact>com.google.protobuf:protoc:3.5.0:exe:${os.detected.classifier}</protocArtifact>
+					<protocArtifact>com.google.protobuf:protoc:3.25.3:exe:${os.detected.classifier}</protocArtifact>
 					<pluginId>grpc-java</pluginId>
 					<pluginArtifact>
-						io.grpc:protoc-gen-grpc-java:1.4.0:exe:${os.detected.classifier}
+						io.grpc:protoc-gen-grpc-java:1.65.0:exe:${os.detected.classifier}
 					</pluginArtifact>
 				</configuration>
 				<executions>
@@ -74,6 +74,11 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.8.2</version>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -81,13 +86,13 @@
 		<repository>
 			<id>github</id>
 			<name>GitHub Packages</name>
-			<url>https://maven.pkg.github.com/Zummit-Africa-Inc/proto</url>
+			<url>https://maven.pkg.github.com/Zummit-Africa-Inc/datarango-proto</url>
 		</repository>
 
 		<snapshotRepository>
 			<id>github</id>
 			<name>GitHub Packages</name>
-			<url>https://maven.pkg.github.com/Zummit-Africa-Inc/proto</url>
+			<url>https://maven.pkg.github.com/Zummit-Africa-Inc/datarango-proto</url>
 		</snapshotRepository>
 	</distributionManagement>
 </project>
