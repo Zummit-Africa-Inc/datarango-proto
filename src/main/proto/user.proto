@@ -66,17 +66,17 @@ message CreateUserRequest {
   string username = 3;
   string email = 4;
   Provider provider = 5;
-  optional string password = 6;
-  optional string business_id = 7;
+  string password = 6;
+  string business_id = 7;
 }
 
 message UpdateUserRequest {
   string user_id = 1;
-  optional string full_name = 2;
-  optional string password = 3;
-  optional string phone_number = 4;
-  optional string avatar_url = 5;
-  optional string country = 6;
+  string full_name = 2;
+  string password = 3;
+  string phone_number = 4;
+  string avatar_url = 5;
+  string country = 6;
 }
 
 message DeleteUserRequest {
@@ -92,10 +92,10 @@ message GetUserResponse {
 }
 
 message GetUsersRequest {
-  optional int64 page = 1;
-  optional int64 size = 2;
-  optional string business_id = 3;
-  optional string name = 4;
+  int64 page = 1;
+  int64 size = 2;
+  string business_id = 3;
+  string name = 4;
 }
 
 message GetUsersResponse {
