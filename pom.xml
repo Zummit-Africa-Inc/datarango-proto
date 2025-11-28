@@ -5,7 +5,7 @@
 
 	<groupId>com.datarango</groupId>
 	<artifactId>proto</artifactId>
-	<version>1.0.7</version>
+	<version>1.0.8</version>
 	<name>proto</name>
 	<description>shared gRPC proto definitions for datarango microservices</description>
 

@@ -70,6 +70,7 @@ message CreateUserRequest {
   string password = 6;
   string business_id = 7;
   Role role = 8;
+  string avatar_url = 9;
 }
 
 message UpdateUserRequest {
