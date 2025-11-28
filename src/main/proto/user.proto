@@ -59,6 +59,7 @@ message User {
   string business_id = 26;
   int64 created_at = 27;
   int64 updated_at = 28;
+  string stripe_customer_id = 29;
 }
 
 message CreateUserRequest {
